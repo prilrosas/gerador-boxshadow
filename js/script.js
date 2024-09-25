@@ -38,7 +38,7 @@ class BoxShadowGenerator {
   }
 
   applyRule() {
-    this.previewBox.style.boxShadow = `${this.horizontalRef.value}px ${this.verticalRef.value}px ${this.blurRef.value}px ${this.spreadRef.value}px #0000`;
+    this.previewBox.style.boxShadow = `${this.horizontalRef.value}px ${this.verticalRef.value}px ${this.blurRef.value}px ${this.spreadRef.value}px #000000`;
     this.currentRule = this.previewBox.style.boxShadow;
   }
 
@@ -46,6 +46,15 @@ class BoxShadowGenerator {
     this.rule.innerText = this.currentRule;
     this.webkitRule.innerText = this.currentRule;
     this.mozRule.innerText = this.currentRule;
+  }
+
+  updateValue(type, value) {
+    switch (type) {
+      case "horizontal":
+        this.horizontalRef.value = value;
+    }
+    this.applyRule();
+    this.showRule();
   }
 }
 
@@ -81,4 +90,10 @@ const boxShadow = new BoxShadowGenerator(
 );
 
 boxShadow.initialize();
+
 // Eventos
+horizontal.addEventListener("input", (e) => {
+  const value = e.target.value;
+
+  boxShadow.updateValue("horizontal", value);
+});
